@@ -9,7 +9,7 @@ ENV NODE_ENV='production'
 ENV MONGO_DB_URI="mongodb+srv://batteryassembly:jYzrBpC26emVYaa6@batteryassembly.vcqm1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 ENV JWT_KEY="4dS8Jv5SvCWdKN8vLBSg8VfhhRK8EHeS"
 ENV JWT_EXPIRES_IN='2d'
-ENV LEGACY_API='https://syfi.co'
+ENV LEGACY_API=''
 ENV PORT='443'
 WORKDIR /root/
 COPY --from=client-build /usr/src/app/client/dist ./client/dist
