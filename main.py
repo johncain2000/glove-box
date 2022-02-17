@@ -14,4 +14,4 @@ def generateFingerprintId():
 
 	return fingerprintID
 
-print(generateFingerprintId())
+
