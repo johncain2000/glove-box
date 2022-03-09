@@ -17,9 +17,6 @@ export default new Vuex.Store({
     setToken(state, token) {
       state.token = token;
     },
-    setWidget(state, widget) {
-      state.widgets[widget.index] = widget.params;
-    },
   },
   actions: {
   },
@@ -30,8 +27,5 @@ export default new Vuex.Store({
     getToken(state) {
       return state.token;
     },
-    getWidgets(state) {
-      return state.widgets;
-    }
   },
 });

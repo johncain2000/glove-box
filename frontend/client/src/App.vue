@@ -74,6 +74,11 @@ export default {
         text: "Glove Box Dashboard",
         to: "/dashboard",
       },
+      {
+        icon: "account_balance_wallet",
+        text: "Battery Cell Charts",
+        to: "/chart"
+      }
     ],
   }),
   computed: {

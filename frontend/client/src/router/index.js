@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Dashboard from '../views/Dashboard.vue'
+import Chart from '../views/Chart.vue'
 import EventService from "@/services/EventService.js";
 
 Vue.use(VueRouter)
@@ -22,6 +23,12 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+    meta: {requiresLogin: true}
+  },
+  {
+    path: '/chart',
+    name: 'Chart',
+    component: Chart,
     meta: {requiresLogin: true}
   }
 ]
