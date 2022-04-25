@@ -10,8 +10,8 @@ axios.interceptors.request.use(function (config) {
 const backendUrl = process.env.VUE_APP_BACKEND_URL || "";
 
 export default {
-  async getAssets(interval) {
-    let res = await axios.get(`${backendUrl}/assets/` + interval);
+  async getData() {
+    let res = await axios.get(`${backendUrl}/data`);
     return res.data;
   },
   async login(credentials) {

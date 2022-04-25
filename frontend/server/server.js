@@ -96,18 +96,54 @@ app.post("/login", async (req, res) => {
 })
 
 
-app.get('/assets/:interval', checkToken, async (req, res) => {
+app.get('/data', checkToken, async (req, res) => {
   try {
-    const interval = req.params.interval;
+    // const interval = req.params.interval;
     const token = getToken(req);
-    const URL = `${process.env.LEGACY_API}/services/target-assets?jwt=${token}`
-    const data = {
-      "selectInterval": interval,
-      "upsec": "3",
-      "lpsec": "-1"
-    }
-    const response = await axios.post(URL, data);
-    res.status(200).send(response.data)
+    // const db = mongoClient.db('battery_box');
+
+    // const humidityData = await db.collection('humidity_sensor')
+    // const oxygenData = await db.collection('oxygen_sensor')
+
+    const result = [];
+    const oxygenColl = await mongoClient.db('battery_box').collection('oxygen_sensor');
+    const tempColl = await mongoClient.db('battery_box').collection('temprature_sensor');
+    const humidityColl = await mongoClient.db('battery_box').collection('humidity_sensor');
+    const size = await humidityColl.estimatedDocumentCount(); // assume collection size is the same for all
+    humidityResp = await humidityColl.aggregate(
+      [
+        {
+          '$skip': size-1
+        }
+      ]
+    ).toArray();
+    result.push(humidityResp[0]);
+    oxygenResp = await oxygenColl.aggregate(
+      [
+        {
+          '$skip': size-1
+        }
+      ]
+    ).toArray();
+    result.push(oxygenResp[0]);
+    tempResp = await tempColl.aggregate(
+      [
+        {
+          '$skip': size-1
+        }
+      ]
+    ).toArray();
+    result.push(tempResp[0]);
+    
+    // const URL = `${process.env.LEGACY_API}/services/data?jwt=${token}`
+    // const data = {
+    //   "selectInterval": interval,
+    //   "upsec": "3",
+    //   "lpsec": "-1"
+    // }
+    // const response = await axios.post(URL, data);
+    // res.status(200).send(response.data)
+    res.status(200).send(result);
   } catch (e) {
     res.status(500).send({error: e.message})
   }
